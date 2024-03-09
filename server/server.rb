@@ -5,8 +5,6 @@ require_relative 'pubsub'
 
 # server routes
 class Server < Sinatra::Base
-  HUB = ENV.fetch('PUBSUB_HUB', 'Demo_hub')
-
   before do
     response.headers['Access-Control-Allow-Origin'] = '*'
   end
@@ -19,7 +17,7 @@ class Server < Sinatra::Base
   end
 
   get '/negotiate' do
-    socket = PubSub.new(params[:id], HUB)
+    socket = PubSub.new(params[:id])
     conn_url = socket.connection_url
     { url: conn_url }.to_json
   end
@@ -27,7 +25,7 @@ class Server < Sinatra::Base
   post '/send' do
     request.body.rewind
     data = JSON.parse(request.body.read, symbolize_names: true)
-    socket = PubSub.new(params[:id], HUB)
+    socket = PubSub.new(params[:id])
     socket.send_mmessage(data[:message])
   end
 end
