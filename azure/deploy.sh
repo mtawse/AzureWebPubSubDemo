@@ -8,4 +8,4 @@ az deployment sub create \
   --template-file resourceGroup.bicep \
   --parameters resourceGroupName=$1 resourceGroupLocation=uksouth
 
-az deployment group create --resource-group webPubSubDemo --template-file webPubSub.bicep
+az deployment group create --resource-group $1 --template-file webPubSub.bicep
