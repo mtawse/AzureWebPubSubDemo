@@ -20,8 +20,7 @@ GEM
       domain_name (~> 0.5)
     http-form_data (2.3.0)
     json (2.7.1)
-    jwt (2.8.1)
-      base64
+    jwt (1.5.6)
     language_server-protocol (3.17.0.3)
     llhttp-ffi (0.5.0)
       ffi-compiler (~> 1.0)
@@ -79,8 +78,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  http
-  jwt
+  http (~> 5.2)
+  jwt (~> 1.5, >= 1.5.4)
   puma (~> 6.4, >= 6.4.2)
   rackup (~> 2.1)
   rubocop (~> 1.62)
