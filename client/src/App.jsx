@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 const App = () => {
@@ -8,8 +8,32 @@ const App = () => {
   const [messages, setMessages] = useState([]);
   const [userId, setUserId] = useState(null);
   const [connected, setConnected] = useState(false);
+  const [connectionError, setConnectionError] = useState(null);
+  const [webSocket, setWebSocket] = useState(null);
+
+  useEffect(() => {
+    if (!webSocket) { return; }
+
+    webSocket.onopen = () => setConnected(true);
+
+    webSocket.onmessage = (event) => handleMessageEvent(event);
+
+    webSocket.onclose = () => setConnected(false);
+
+    webSocket.onerror = (error) => {
+      console.log('Socket encountered error: ', error, 'Closing socket');
+      setConnected(false);
+      setConnectionError(error)
+      webSocket.close();
+    };
+
+    return () => {
+       webSocket.close();
+    };
+  }, [webSocket]);
 
   const handleConnect = async () => {
+    setConnectionError(null)
     const randNum = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
     setUserId(randNum);
     await callConnect(randNum);
@@ -18,13 +42,7 @@ const App = () => {
   const callConnect = async (id) => {
     const response = await fetch(`${SERVER_URL}/negotiate?id=${id}`);
     const token = await response.json();
-    setUpSocket(token.url);
-    setConnected(true)
-  }
-
-  const setUpSocket = (url) => {
-    const ws = new WebSocket(url);
-    ws.addEventListener('message', (e) => handleMessageEvent(e));
+    setWebSocket(new WebSocket(token.url))
   }
 
   const handleMessageEvent = (event) => {
@@ -64,17 +82,21 @@ const App = () => {
         <button disabled={!connected} onClick={() => handleSend(userId)} type="button">
           Send
         </button>
-        <div>
-          <ul>
-          {messages.map((message) => 
-             (
-              <div key={message.id}>
-                Message received: {message.message}
-              </div>
-            )
-          )}
-          </ul>
-        </div>
+        {connectionError ? <p>
+            Error connecting to socket
+          </p> : null
+        }
+        {messages.length ? <div>
+        <ul>
+        {messages.map((message) => 
+           (
+            <div key={message.id}>
+              Message received: {message.message}
+            </div>
+          )
+        )}
+        </ul>
+      </div> : null}
       </div>
     </>
   )
