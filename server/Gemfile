@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+gem 'http', '~> 5.2'
+gem 'jwt', '~> 1.5', '>= 1.5.4'
+gem 'puma', '~> 6.4', '>= 6.4.2'
+gem 'rackup', '~> 2.1'
+gem 'sinatra', '~> 4.0'
+
+group :development do
+  gem 'rubocop', '~> 1.62', require: false
+end
