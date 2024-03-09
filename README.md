@@ -13,7 +13,7 @@ Create an Azure resource group with Web PUbSub
 ./azure/deploy.sh <resource-group-name>
 ```
 
-After the resources have been created navigate to Azure portal and make a note of the Web PubSub host name and access key.
+Export the host and secret as environment variables.
 
 ## Running the app
 

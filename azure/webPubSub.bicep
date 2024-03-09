@@ -93,3 +93,6 @@ resource webpubsub 'Microsoft.SignalRService/webPubSub@2021-10-01' = {
     }
   }
 }
+
+output hostname string = webpubsub.properties.hostName
+output accessKey string = webpubsub.listKeys().primaryKey
