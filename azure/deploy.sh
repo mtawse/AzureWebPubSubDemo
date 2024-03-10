@@ -14,13 +14,11 @@ az deployment group create \
    --template-file webPubSub.bicep
 
 
-echo "PUBSUB_DOMAIN"
-pubSubDomain=$(az deployment group show \
+pubSubHost=$(az deployment group show \
   -g $1 \
   -n webPubSubDemoDeployemntGroup \
   --query properties.outputs.hostname.value)
 
-echo "PUBSUB_SECRET"
 pubSubSecret=$(az deployment group show \
   -g $1 \
   -n webPubSubDemoDeployemntGroup \
@@ -28,5 +26,5 @@ pubSubSecret=$(az deployment group show \
 
 
 echo "Export the following environment variables"
-echo "export PUBSUB_DOMAIN=$pubSubDomain"
+echo "export PUBSUB_HOST=$pubSubHost"
 echo "export PUBSUB_SECRET=$pubSubSecret"

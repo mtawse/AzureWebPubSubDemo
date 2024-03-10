@@ -7,7 +7,7 @@ services:
     ports:
       - 3000:3000 
     environment:
-    - PUBSUB_DOMAIN=${PUBSUB_DOMAIN}
+    - PUBSUB_HOST=${PUBSUB_HOST}
     - PUBSUB_SECRET=${PUBSUB_SECRET}
     - PUBSUB_HUB=Demo_hub
     - RACK_ENV=production

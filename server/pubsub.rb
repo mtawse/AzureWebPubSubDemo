@@ -5,9 +5,9 @@ require 'jwt'
 
 # Azure pubsub client
 class PubSub
-  SERVER_DOMAIN = ENV.fetch('PUBSUB_DOMAIN')
-  WEB_URL = "https://#{SERVER_DOMAIN}"
-  SOCKET_URL = "wss://#{SERVER_DOMAIN}"
+  SERVER_HOST = ENV.fetch('PUBSUB_HOST')
+  WEB_URL = "https://#{SERVER_HOST}"
+  SOCKET_URL = "wss://#{SERVER_HOST}"
   SECRET = ENV.fetch('PUBSUB_SECRET')
   HUB = ENV.fetch('PUBSUB_HUB', 'Demo_hub')
 

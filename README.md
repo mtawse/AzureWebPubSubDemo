@@ -20,7 +20,7 @@ Export the host and secret as environment variables.
 Set the host and access key environment variables then start the containers
 
 ```
-export PUBSUB_DOMAIN=<pub-sub-domain>
+export PUBSUB_HOST=<pub-sub-host>
 export PUBSUB_SECRET=<pub-sub-access-key>
 
 docker-compose up --build
