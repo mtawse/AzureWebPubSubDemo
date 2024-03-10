@@ -1,6 +1,6 @@
 import { Button, chakra, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 
-const SendMessage = ({ disableInput, disableButton, onChange, onCLick, value }) => (
+const SendMessage = ({ disableInput, disableButton, onChange, onClick, value }) => (
   <>
     <chakra.h3 fontSize="xl" fontWeight="600">
       Send message
@@ -21,7 +21,7 @@ const SendMessage = ({ disableInput, disableButton, onChange, onCLick, value }) 
           bg="blue.400"
           colorScheme="blue"
           isDisabled={disableButton}
-          onClick={onCLick}
+          onClick={onClick}
           px={6}
         >
           Send

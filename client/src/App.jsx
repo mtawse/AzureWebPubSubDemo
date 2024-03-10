@@ -121,7 +121,7 @@ const App = () => {
           <SendMessage
             disableButton={!connected || !messageInput}
             disableInput={!connected}
-            onCLick={() => handleSend(userId)}
+            onClick={() => handleSend(userId)}
             onChange={handleInputChange}
             value={messageInput}
           />
