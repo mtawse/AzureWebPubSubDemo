@@ -1,23 +1,8 @@
 import { useEffect, useState } from 'react';
-import {
-  Box,
-  Button,
-  chakra,
-  Container,
-  Divider,
-  Flex,
-  Grid,
-  GridItem,
-  HStack,
-  Input,
-  InputGroup,
-  InputRightElement,
-  List,
-  ListIcon,
-  ListItem,
-  VStack,
-} from '@chakra-ui/react';
-import { CheckCircleIcon, WarningIcon } from '@chakra-ui/icons';
+import { Box, chakra, Container, Divider, Flex, Grid, GridItem, VStack } from '@chakra-ui/react';
+import Connection from './Connection';
+import MessageList from './MessageList';
+import SendMessage from './SendMessage';
 
 const App = () => {
   const SERVER_URL = 'http://localhost:3000';
@@ -86,9 +71,7 @@ const App = () => {
     setMessageInput('');
     await fetch(`${SERVER_URL}/send?id=${id}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: messageToSend }),
     });
   };
@@ -110,22 +93,11 @@ const App = () => {
             <chakra.h2 fontSize="3xl" fontWeight="700">
               Azure Web PubSub Demo
             </chakra.h2>
-            <HStack>
-              <Button
-                _hover={{
-                  bg: 'green.500',
-                }}
-                bg="green.400"
-                colorScheme="green"
-                isDisabled={connected}
-                onClick={() => handleConnect()}
-                px={6}
-              >
-                Connect
-              </Button>
-              {connected ? <CheckCircleIcon boxSize={6} color="green.400" /> : null}
-              {connectionError ? <WarningIcon boxSize={6} color="red.400" /> : null}
-            </HStack>
+            <Connection
+              connected={connected}
+              connectionError={connectionError}
+              onClick={() => handleConnect()}
+            />
           </VStack>
         </GridItem>
         <GridItem>
@@ -146,47 +118,19 @@ const App = () => {
         }}
       >
         <GridItem>
-          <chakra.h3 fontSize="xl" fontWeight="600">
-            Send message
-          </chakra.h3>
-          <InputGroup size="md">
-            <Input
-              isDisabled={!connected}
-              onChange={handleInputChange}
-              placeholder="Enter message"
-              type="text"
-              value={messageInput}
-            />
-            <InputRightElement width="4.5rem">
-              <Button
-                _hover={{
-                  bg: 'blue.500',
-                }}
-                bg="blue.400"
-                colorScheme="blue"
-                isDisabled={!connected || !messageInput}
-                onClick={() => handleSend(userId)}
-                px={6}
-              >
-                Send
-              </Button>
-            </InputRightElement>
-          </InputGroup>
+          <SendMessage
+            disableButton={!connected || !messageInput}
+            disableInput={!connected}
+            onCLick={() => handleSend(userId)}
+            onChange={handleInputChange}
+            value={messageInput}
+          />
         </GridItem>
         <GridItem>
           <chakra.h3 fontSize="xl" fontWeight="600">
             Received messages
           </chakra.h3>
-          {messages.length ? (
-            <List spacing={3}>
-              {messages.map((message) => (
-                <ListItem key={message.id}>
-                  <ListIcon as={CheckCircleIcon} color="green.500" />
-                  {message.message}
-                </ListItem>
-              ))}
-            </List>
-          ) : null}
+          {messages.length ? <MessageList messages={messages} /> : null}
         </GridItem>
       </Grid>
     </Box>
