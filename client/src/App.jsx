@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, chakra, Container, Divider, Flex, Grid, GridItem, VStack } from '@chakra-ui/react';
 import Connection from './Connection';
-import MessageList from './MessageList';
+import ReceivedMessages from './ReceivedMessages';
 import SendMessage from './SendMessage';
 
 const App = () => {
@@ -121,16 +121,13 @@ const App = () => {
           <SendMessage
             disableButton={!connected || !messageInput}
             disableInput={!connected}
-            onClick={() => handleSend(userId)}
             onChange={handleInputChange}
+            onClick={() => handleSend(userId)}
             value={messageInput}
           />
         </GridItem>
         <GridItem>
-          <chakra.h3 fontSize="xl" fontWeight="600">
-            Received messages
-          </chakra.h3>
-          {messages.length ? <MessageList messages={messages} /> : null}
+          <ReceivedMessages messages={messages} />
         </GridItem>
       </Grid>
     </Box>
