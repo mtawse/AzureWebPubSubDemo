@@ -1,0 +1,9 @@
+.git
+.vscode
+.dockerignore
+.gitignore
+.env
+docker-compose.yaml
+Dockerfile
+README.md
+start_dev.sh
