@@ -11,7 +11,8 @@ COPY Gemfile Gemfile.lock ./
 ENV BUNDLER_VERSION 2.4.10
 RUN gem update --system \
     && gem install bundler -v $BUNDLER_VERSION \
-    && bundle install --without development -j 4
+    && bundle config set without 'development test' \
+    && bundle install
 
 COPY --chown=app-user:app-user . ./
 
