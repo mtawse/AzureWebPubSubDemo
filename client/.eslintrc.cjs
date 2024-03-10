@@ -6,6 +6,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
     'react-app',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
@@ -56,5 +57,6 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/prop-types": "off",
+    'prettier/prettier': 0,
   },
 }
