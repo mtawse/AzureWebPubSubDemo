@@ -4,7 +4,7 @@ require 'http'
 require 'jwt'
 
 # Azure pubsub client
-class PubSub
+class PubSubClient
   SERVER_HOST = ENV.fetch('PUBSUB_HOST')
   WEB_URL = "https://#{SERVER_HOST}"
   SOCKET_URL = "wss://#{SERVER_HOST}"

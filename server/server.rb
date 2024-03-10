@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'sinatra'
-require_relative 'pubsub'
+require_relative 'pubsub_client'
 
 # server routes
 class Server < Sinatra::Base
@@ -17,15 +17,15 @@ class Server < Sinatra::Base
   end
 
   get '/negotiate' do
-    socket = PubSub.new(params[:id])
-    conn_url = socket.connection_url
+    client = PubSubClient.new(params[:id])
+    conn_url = client.connection_url
     { url: conn_url }.to_json
   end
 
   post '/send' do
     request.body.rewind
     data = JSON.parse(request.body.read, symbolize_names: true)
-    socket = PubSub.new(params[:id])
-    socket.send_mmessage(data[:message])
+    client = PubSubClient.new(params[:id])
+    client.send_mmessage(data[:message])
   end
 end
